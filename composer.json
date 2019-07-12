@@ -1,5 +1,5 @@
 {
-    "name": "raketman/versioning-bundle",
+    "name": "raketman/service-versioning-bundle",
     "description": "Easy versioning your services",
     "keywords": ["versioning", "version", "service"],
     "type": "symfony-bundle",
@@ -11,10 +11,10 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Raketman\\Bundle\\VersioningBundle\\": "" }
+        "psr-4": { "Raketman\\Bundle\\ServiceVersioningBundle\\": "" }
     },
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.6.5",
         "symfony/symfony": "~2.0|~3.0|~4.0"
     }
 }
