@@ -2,6 +2,8 @@
 ##Версионирование сервисов symfony
 
 
+    composer require raketman/service-versioning-bundle
+
 ####Примеры использования :
 
     
