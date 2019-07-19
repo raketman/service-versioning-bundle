@@ -2,7 +2,7 @@
 
 namespace Raketman\Bundle\ServiceVersioningBundle\Resolver;
 
-interface IVersion
+interface VersionResolverInterface
 {
     public function getVersion();
 }

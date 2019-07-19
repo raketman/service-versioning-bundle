@@ -4,7 +4,7 @@ namespace Raketman\Bundle\ServiceVersioningBundle\Services;
 
 
 use Raketman\Bundle\ServiceVersioningBundle\Exception\NotFoundVersionException;
-use Raketman\Bundle\ServiceVersioningBundle\Resolver\IVersion;
+use Raketman\Bundle\ServiceVersioningBundle\Resolver\VersionResolverInterface;
 
 
 final class Factory
@@ -12,7 +12,7 @@ final class Factory
     /** @var  [] */
     private $versions;
 
-    /** @var  IVersion */
+    /** @var  VersionResolverInterface */
     private $resolver;
 
     public function getClass()
@@ -20,7 +20,7 @@ final class Factory
         return $this->get($this->resolver->getVersion());
     }
     /**
-     * @param IVersion $resolver
+     * @param VersionResolverInterface $resolver
      */
     public function setResolver($resolver)
     {
