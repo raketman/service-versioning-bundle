@@ -23,7 +23,7 @@ class VersionFactoryPass implements CompilerPassInterface
             // Создадим сервис, который потом добавим как фабрику к текущему
             $factoryName = 'raketman.version.factory_'.$serviceId;
             $factory = new Definition(Factory::class);
-            //$factory->setPublic(false);
+            $factory->setPublic(false);
 
             // Найдем все версии по тегу, который является названием сервиса
             $isFound = false;
