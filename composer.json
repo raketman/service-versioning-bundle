@@ -1,6 +1,6 @@
 {
     "name": "raketman/service-versioning-bundle",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Easy versioning your services",
     "keywords": ["versioning", "version", "service"],
     "type": "symfony-bundle",
