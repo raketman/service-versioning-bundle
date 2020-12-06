@@ -98,7 +98,7 @@ Now we can use "app.validation.test", and get different versions depending on $ 
 	 /**
 	 * @Route("/some-method")
 	 */
-	 public function test(AppBundle\Validation\VInterface $validation)
+	 public function test(App\Validation\VInterface $validation)
 	 {
 	     //if $_GET['version'] === 1, then get_class($validation) - App\Validation\V1 // app.validation.test_v1
 	     //if $_GET['version'] === 2, then get_class($validation) - App\Validation\V2 // app.validation.test_v2
