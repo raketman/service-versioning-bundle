@@ -6,36 +6,53 @@
 
 ####Usage :
 
-    
-	services:
+    services:
 	    
-	  #Specify the tag 'raketman.version.factory' - now this service will have versions
+      #Specify the tag 'raketman.version.factory' - now this service will have versions
       #resolver - service that will determine the version
       
       app.validation.test:
-        class: Symfony\Component\Form\FormTypeInterface
+        class: App\Validation\VInterface
         tags:
           - {name: 'raketman.version.factory', resolver: 'app.version.resolver'}
+      # OR if yuo have autowire
+      
+      App\Validation\VInterface
+        tags:
+          - {name: 'raketman.version.factory', resolver: 'app.version.resolver'}
+    
+    
     
       #The version is indicated through tags that correspond to the name of the service we want to version
       #version - value of version 
     
       app.validation.test_v1:
-        class: AppBundle\Validation\V1
+        class: App\Validation\V1
         tags:
           - {name: 'app.validation.test', version: 1 }
           - {name: 'app.validation.test', version: 3 }
     
       app.validation.test_v2:
-        class: AppBundle\Validation\V2
+        class: App\Validation\V2
         tags:
           - {name: 'app.validation.test', version: 2 }
+      #OR if yuo have autowire
+      
+      app.validation.test_v1:
+        class: App\Validation\V1
+        tags:
+          - {name: 'App\Validation\VInterface', version: 1 }
+          - {name: 'App\Validation\VInterface', version: 3 }
+    
+      app.validation.test_v2:
+        class: App\Validation\V2
+        tags:
+          - {name: 'App\Validation\VInterface', version: 2 }		
 		
-		
-	  # Version resolver
+      # Version resolver
 	  	
       app.version.resolver:
-        class: AppBundle\Resolver\Version
+        class: App\Resolver\Version
         arguments:
             - '@request_stack'
             
@@ -46,7 +63,7 @@ Now you have the service "app.validation.test", upon receipt of which, depending
 
 #####For example, the implementation of "app.version.resolver" is as follows:
 
-     namespace AppBundle\Resolver;
+     namespace App\Resolver;
     
      use Raketman\Bundle\ServiceVersioningBundle\Resolver\VersionResolverInterface;
      use Symfony\Component\HttpFoundation\RequestStack;
@@ -72,9 +89,21 @@ Now we can use "app.validation.test", and get different versions depending on $ 
 
 	 $validation = $this->get('app.validation.test');
 	 
-	 if $_GET['version'] === 1, then get_class($validation) - AppBundle\Validation\V1 // сервис app.validation.test_v1
-	 if $_GET['version'] === 2, then get_class($validation) - AppBundle\Validation\V2 // app.validation.test_v2
-	 if $_GET['version'] === 3, then get_class($validation) - AppBundle\Validation\V1 // app.validation.test_v1
+	 if $_GET['version'] === 1, then get_class($validation) - App\Validation\V1 // app.validation.test_v1
+	 if $_GET['version'] === 2, then get_class($validation) - App\Validation\V2 // app.validation.test_v2
+	 if $_GET['version'] === 3, then get_class($validation) - App\Validation\V1 // app.validation.test_v1
+	 
+	 OR
+	 
+	 /**
+	 * @Route("/some-method")
+	 */
+	 public function test(AppBundle\Validation\VInterface $validation)
+	 {
+	     //if $_GET['version'] === 1, then get_class($validation) - App\Validation\V1 // app.validation.test_v1
+	     //if $_GET['version'] === 2, then get_class($validation) - App\Validation\V2 // app.validation.test_v2
+	     //if $_GET['version'] === 3, then get_class($validation) - App\Validation\V1 // app.validation.test_v1
+	 }
 
 
 The implementation of resolver can be any, for example, based on the current user, which will allow for various users
